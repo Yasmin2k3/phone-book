@@ -7,6 +7,8 @@ public class Address {
     Date birthday;
     private boolean emergencyContact = false;
 
+    private final int charCap = 50;
+
     public Address(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, String emails, Date birthday){
 
     }
@@ -22,7 +24,7 @@ public class Address {
     public void setEmergencyContact(boolean emergencyContact) {
         this.emergencyContact = emergencyContact;
     }
-    private final int charCap = 50;
+
     private boolean validateFirstName()
     {
         return this.firstName.length()<=charCap;
