@@ -2,40 +2,40 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class PhoneBook {
-    ArrayList<Address> phoneAddress;
+    ArrayList<Contact> contacts;
 
     public PhoneBook(){
-        this.phoneAddress = new ArrayList<>();
+        this.contacts = new ArrayList<>();
     }
 
-    public void add(Address address){
-        this.phoneAddress.add(address);
+    public void add(Contact contact){
+        this.contacts.add(contact);
         //TODO: change to binary search
-        phoneAddress.sort(Comparator.comparing(Address::getFirstName));
+        contacts.sort(Comparator.comparing(Contact::getFirstName));
     }
 
     public void add(String nickname, String firstName, String surname, String mobileNumber, String homeNumber, String businessNumber, String email, Date birthday){
         //TODO: check if it is already in the phone book
-        add(new Address(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, email, birthday));
+        add(new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, email, birthday));
     }
 
-    public void update(int id, Address address){
-        this.phoneAddress.set(id, address);
+    public void update(int id, Contact contact){
+        this.contacts.set(id, contact);
     }
 
     public void delete(int id){
-        this.phoneAddress.remove(id);
+        this.contacts.remove(id);
     }
 
     public String searchByName(String firstName) {
-        int left = 0, right = phoneAddress.size() - 1;
+        int left = 0, right = contacts.size() - 1;
         int mid = -1;
 
         // homemade binary search
         while (left <= right) {
             mid = left + (right - left) / 2;
-            Address midAddress = phoneAddress.get(mid);
-            int comparison = midAddress.getFirstName().compareToIgnoreCase(firstName);
+            Contact midContact = contacts.get(mid);
+            int comparison = midContact.getFirstName().compareToIgnoreCase(firstName);
 
             if (comparison == 0) {
                 break;
@@ -46,7 +46,7 @@ public class PhoneBook {
             }
         }
 
-        if (mid == -1 || phoneAddress.get(mid).getFirstName().compareToIgnoreCase(firstName) != 0) {
+        if (mid == -1 || contacts.get(mid).getFirstName().compareToIgnoreCase(firstName) != 0) {
             return "Contact not found.";
         }
 
@@ -55,18 +55,18 @@ public class PhoneBook {
         int start = mid, end = mid;
 
         // Find the leftmost occurrence
-        while (start > 0 && phoneAddress.get(start - 1).getFirstName().compareToIgnoreCase(firstName) == 0) {
+        while (start > 0 && contacts.get(start - 1).getFirstName().compareToIgnoreCase(firstName) == 0) {
             start--;
         }
 
         // Find the rightmost occurrence
-        while (end < phoneAddress.size() - 1 && phoneAddress.get(end + 1).getFirstName().compareToIgnoreCase(firstName) == 0) {
+        while (end < contacts.size() - 1 && contacts.get(end + 1).getFirstName().compareToIgnoreCase(firstName) == 0) {
             end++;
         }
 
         // Collect all matching addresses and their indexes
         for (int i = start; i <= end; i++) {
-            result.append("Index: ").append(i).append(" - ").append(phoneAddress.get(i).toString()).append("\n");
+            result.append("Index: ").append(i).append(" - ").append(contacts.get(i).toString()).append("\n");
         }
 
         return result.toString();
@@ -74,11 +74,12 @@ public class PhoneBook {
 
 
 
-    public Address getContact(int id){
-        return phoneAddress.get(id);
+    public Contact getContact(int id){
+        return contacts.get(id);
     }
 
-    public void setEmergencyContact(int id, boolean emergencyContact){phoneAddress.get(id).setEmergencyContact(emergencyContact);}
+    public void setEmergencyContact(int id, boolean emergencyContact){
+        contacts.get(id).setEmergencyContact(emergencyContact);}
 
 
 }

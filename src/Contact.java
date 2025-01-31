@@ -1,7 +1,6 @@
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class Address {
+public class Contact {
     private String nickname, firstName, surname, group;
     String mobileNumbers, homeNumbers, businessNumbers, emails;
     Date birthday;
@@ -9,7 +8,7 @@ public class Address {
 
     private final int charCap = 50;
 
-    public Address(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, String emails, Date birthday){
+    public Contact(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, String emails, Date birthday){
 
         if (validate(mobileNumbers, homeNumbers, businessNumbers)) {
             this.nickname=nickname;
