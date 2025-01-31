@@ -39,24 +39,32 @@ public class Address {
     {
         return this.group.length()<=charCap;
     }
-    private boolean __validationNumberMethod(ArrayList<String> list)
+//    private boolean __validationNumberMethod(ArrayList<String> list)
+//    {
+//        boolean valid = true;
+//        int min = 9;
+//        int max = 15;
+//        for (int i = 0; i < list.size(); i++) {
+//            int curNumLength = list.get(i).length();
+//            if(curNumLength< min || curNumLength >max)
+//            {
+//                valid = false;
+//            }
+//            else
+//            {
+//                continue;
+//            }
+//
+//        }
+//        return valid;
+//    }
+
+    private boolean __validationNumberMethod(String phoneNumber)
     {
-        boolean valid = true;
         int min = 9;
         int max = 15;
-        for (int i = 0; i < list.size(); i++) {
-            int curNumLength = list.get(i).length();
-            if(curNumLength< min || curNumLength >max)
-            {
-                valid = false;
-            }
-            else
-            {
-                continue;
-            }
 
-        }
-        return valid;
+        return(phoneNumber.length()< min || phoneNumber.length() >max);
     }
 
     private boolean validateMobileNumbers()
