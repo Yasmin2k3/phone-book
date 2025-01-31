@@ -1,23 +1,23 @@
 import java.util.regex.Pattern;
 
 public class Contact {
-    private String nickname, firstName, surname, group;
-    String mobileNumbers, homeNumbers, businessNumbers, emails;
+    private String nickname, firstName, surname;
+    String mobileNumbers, homeNumbers, businessNumbers, email;
     Date birthday;
     private boolean emergencyContact = false;
 
     private final int charCap = 50;
 
-    public Contact(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, String emails, Date birthday){
+    public Contact(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, String email, Date birthday){
 
-        if (validate(firstName, mobileNumbers, homeNumbers, businessNumbers)) {
+        if (validate(firstName, surname, nickname, mobileNumbers, homeNumbers, businessNumbers, email)) {
             this.nickname=nickname;
             this.firstName=firstName;
             this.surname=surname;
             this.mobileNumbers=mobileNumbers;
             this.homeNumbers = homeNumbers;
             this.businessNumbers=businessNumbers;
-            this.emails = emails;
+            this.email = email;
             this.birthday = birthday;
               } else {
             throw new RuntimeException();
@@ -36,26 +36,22 @@ public class Contact {
         this.emergencyContact = emergencyContact;
     }
 
-    private boolean validate(String firstName, String mobileNumbers, String homeNumbers, String businessNumbers){
-        return (validateFirstName(firstName) && validateSurName() && validateNickname() && validateGroup() && __validationNumberMethod(mobileNumbers)
-         && __validationNumberMethod(homeNumbers) && __validationNumberMethod(businessNumbers) && validateEmail());
+    private boolean validate(String firstName, String surname, String nickname, String mobileNumbers, String homeNumbers, String businessNumbers, String email){
+        return (validateFirstName(firstName) && validateSurName(surname) && validateNickname(nickname) && __validationNumberMethod(mobileNumbers)
+         && __validationNumberMethod(homeNumbers) && __validationNumberMethod(businessNumbers) && validateEmail(email));
     }
 
     private boolean validateFirstName(String firstName)
     {
         return firstName.length()<=charCap;
     }
-    private boolean validateSurName()
+    private boolean validateSurName(String surname)
     {
-        return this.surname.length()<=charCap;
+        return surname.length()<=charCap;
     }
-    private boolean validateNickname()
+    private boolean validateNickname(String nickname)
     {
-        return this.nickname.length()<=charCap;
-    }
-    private boolean validateGroup()
-    {
-        return this.group.length()<=charCap;
+        return nickname.length()<=charCap;
     }
 //    private boolean __validationNumberMethod(ArrayList<String> list)
 //    {
@@ -85,7 +81,6 @@ public class Contact {
         return(phoneNumber.length()< min || phoneNumber.length() >max);
     }
 
-
 //    private boolean validateEmails()
 //    {
 //        boolean valid = true;
@@ -102,11 +97,11 @@ public class Contact {
 //        return valid;
 //    }
 
-    private boolean validateEmail()
+    private boolean validateEmail(String email)
     {
             String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
             Pattern p = Pattern.compile(emailRegex);
-            return(!p.matcher(this.emails).hasMatch());
+            return(!p.matcher(email).hasMatch());
     }
 
     public String toString(){
@@ -116,7 +111,7 @@ public class Contact {
                 this.mobileNumbers,
                 this.firstName,
                 this.surname,
-                this.emails,
+                this.email,
                 this.birthday,
                 this.homeNumbers,
                 this.businessNumbers);
