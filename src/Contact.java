@@ -85,19 +85,6 @@ public class Contact {
         return(phoneNumber.length()< min || phoneNumber.length() >max);
     }
 
-    //Don't need these
-    private boolean validateMobileNumbers()
-    {
-        return __validationNumberMethod(this.mobileNumbers);
-    }
-    private boolean validateHomeNumbers()
-    {
-        return __validationNumberMethod(this.homeNumbers);
-    }
-    private boolean validateBusinessNumbers()
-    {
-        return __validationNumberMethod(this.businessNumbers);
-    }
 
 //    private boolean validateEmails()
 //    {
