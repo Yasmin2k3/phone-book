@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Address {
-    private String nickname, firstName, surname;
+    private String nickname, firstName, surname, group;
     ArrayList<String> mobileNumbers, homeNumbers, businessNumbers, emails;
     Date birthday;
     private boolean emergencyContact = false;
