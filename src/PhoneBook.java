@@ -16,11 +16,12 @@ public class PhoneBook {
         phoneAddress.sort(Comparator.comparing(Address::getFirstName));
     }
 
-    public void update(int id){
+    public void update(int id, Address address){
+        this.phoneAddress.set(id, address);
     }
 
     public void delete(int id){
-
+        this.phoneAddress.remove(id);
     }
 
     public String searchByName(String firstName){
