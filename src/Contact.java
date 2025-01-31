@@ -18,7 +18,6 @@ public class Contact {
             this.mobileNumbers=mobileNumbers;
             this.homeNumbers = homeNumbers;
             this.businessNumbers=businessNumbers;
-            this.email = email;
             this.birthday = birthday;
               } else {
             throw new RuntimeException("Validation failed");
@@ -79,7 +78,7 @@ public class Contact {
         int min = 9;
         int max = 15;
 
-        return(phoneNumber.length()< min || phoneNumber.length() >max);
+        return(phoneNumber.length()> min && phoneNumber.length() <max);
     }
 
 //    private boolean validateEmails()
