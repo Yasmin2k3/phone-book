@@ -8,9 +8,10 @@ public class Contact {
 
     private final int charCap = 50;
 
-    public Contact(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, String email, Date birthday){
+    //add email
+    public Contact(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, Date birthday){
 
-        if (validate(firstName, surname, nickname, mobileNumbers, homeNumbers, businessNumbers, email)) {
+        if (validate(firstName, surname, nickname, mobileNumbers, homeNumbers, businessNumbers)) {
             this.nickname=nickname;
             this.firstName=firstName;
             this.surname=surname;
@@ -20,7 +21,7 @@ public class Contact {
             this.email = email;
             this.birthday = birthday;
               } else {
-            throw new RuntimeException();
+            throw new RuntimeException("Validation failed");
         }
     }
 
@@ -36,9 +37,9 @@ public class Contact {
         this.emergencyContact = emergencyContact;
     }
 
-    private boolean validate(String firstName, String surname, String nickname, String mobileNumbers, String homeNumbers, String businessNumbers, String email){
+    private boolean validate(String firstName, String surname, String nickname, String mobileNumbers, String homeNumbers, String businessNumbers){
         return (validateFirstName(firstName) && validateSurName(surname) && validateNickname(nickname) && __validationNumberMethod(mobileNumbers)
-         && __validationNumberMethod(homeNumbers) && __validationNumberMethod(businessNumbers) && validateEmail(email));
+         && __validationNumberMethod(homeNumbers) && __validationNumberMethod(businessNumbers));
     }
 
     private boolean validateFirstName(String firstName)
@@ -97,12 +98,12 @@ public class Contact {
 //        return valid;
 //    }
 
-    private boolean validateEmail(String email)
-    {
-            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-            Pattern p = Pattern.compile(emailRegex);
-            return(!p.matcher(email).hasMatch());
-    }
+//    private boolean validateEmail(String email)
+//    {
+//            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+//            Pattern p = Pattern.compile(emailRegex);
+//            return(!p.matcher(email).hasMatch());
+//    }
 
     public String toString(){
         return String.format(
