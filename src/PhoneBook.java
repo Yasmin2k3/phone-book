@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class PhoneBook {
@@ -9,11 +8,15 @@ public class PhoneBook {
         this.phoneAddress = new ArrayList<>();
     }
 
-    public void add(String nickname, String firstName, String surname, String mobileNumber, String homeNumber, String businessNumber, String email, Date birthday){
-        //TODO: check if it is already in the phone book
-        this.phoneAddress.add(new Address(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, email, birthday));
+    public void add(Address address){
+        this.phoneAddress.add(address);
         //TODO: change to binary search
         phoneAddress.sort(Comparator.comparing(Address::getFirstName));
+    }
+
+    public void add(String nickname, String firstName, String surname, String mobileNumber, String homeNumber, String businessNumber, String email, Date birthday){
+        //TODO: check if it is already in the phone book
+        add(new Address(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, email, birthday));
     }
 
     public void update(int id, Address address){
