@@ -5,11 +5,9 @@ public class Main
 
     public static void main(String[] args)
     {
-        boolean running = true;
-        Scanner input = new Scanner(System.in);
-        while(running)
-        {
+        PhoneBook myPhoneBook = new PhoneBook();
+        myPhoneBook.add(new Contact("Y", "Yasmin", "Woodlock", "0899583792", "0526135952", "", "yasmonso@gmail.com", new Date(12, 11, 2003)));
 
-        }
+        System.out.println(myPhoneBook);
     }
 }

@@ -10,7 +10,7 @@ public class Contact {
 
     public Contact(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, String emails, Date birthday){
 
-        if (validate(mobileNumbers, homeNumbers, businessNumbers)) {
+        if (validate(firstName, mobileNumbers, homeNumbers, businessNumbers)) {
             this.nickname=nickname;
             this.firstName=firstName;
             this.surname=surname;
@@ -36,14 +36,14 @@ public class Contact {
         this.emergencyContact = emergencyContact;
     }
 
-    private boolean validate(String mobileNumbers, String homeNumbers, String businessNumbers){
-        return (validateFirstName() && validateSurName() && validateNickname() && validateGroup() && __validationNumberMethod(mobileNumbers)
+    private boolean validate(String firstName, String mobileNumbers, String homeNumbers, String businessNumbers){
+        return (validateFirstName(firstName) && validateSurName() && validateNickname() && validateGroup() && __validationNumberMethod(mobileNumbers)
          && __validationNumberMethod(homeNumbers) && __validationNumberMethod(businessNumbers) && validateEmail());
     }
 
-    private boolean validateFirstName()
+    private boolean validateFirstName(String firstName)
     {
-        return this.firstName.length()<=charCap;
+        return firstName.length()<=charCap;
     }
     private boolean validateSurName()
     {
