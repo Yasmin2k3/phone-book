@@ -21,6 +21,7 @@ public class PhoneBook {
     }
 
     public void delete(int id){
+        System.out.println("REMOVED:\n" + contacts.get(id));
         this.contacts.remove(id);
     }
 
