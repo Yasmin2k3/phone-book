@@ -1,14 +1,14 @@
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 public class PhoneBook {
-    TreeMap<Integer, Address> phoneAddress;
+    ArrayList<Address> phoneAddress;
 
     public PhoneBook(){
-        phoneAddress = new TreeMap<>();
+        phoneAddress = new ArrayList<>();
     }
 
     public void add(String nickname, String firstName, String surname, String mobileNumber, String homeNumber, String businessNumber, String email, Date birthday){
+        phoneAddress.add(new Address(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, email, birthday));
     }
 
     public void update(){
@@ -16,6 +16,10 @@ public class PhoneBook {
 
     public void delete(){
 
+    }
+
+    public String searchByName(String firstName){
+        return "";
     }
 
     public Address getAddress(int id){

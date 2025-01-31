@@ -2,9 +2,13 @@ import java.util.ArrayList;
 
 public class Address {
     private String nickname, firstName, surname, group;
-    ArrayList<String> mobileNumbers, homeNumbers, businessNumbers, emails;
+    String mobileNumbers, homeNumbers, businessNumbers, emails;
     Date birthday;
     private boolean emergencyContact = false;
+
+    public Address(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, String emails, Date birthday){
+
+    }
 
     public boolean isEmergencyContact() {
         return emergencyContact;
