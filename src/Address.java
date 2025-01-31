@@ -10,7 +10,17 @@ public class Address {
     private final int charCap = 50;
 
     public Address(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, String emails, Date birthday){
-        if(!validate(mobileNumbers, homeNumbers, businessNumbers)){
+
+        if (validate(mobileNumbers, homeNumbers, businessNumbers)) {
+            this.nickname=nickname;
+            this.firstName=firstName;
+            this.surname=surname;
+            this.mobileNumbers=mobileNumbers;
+            this.homeNumbers = homeNumbers;
+            this.businessNumbers=businessNumbers;
+            this.emails = emails;
+            this.birthday = birthday;
+              } else {
             throw new RuntimeException();
         }
     }
