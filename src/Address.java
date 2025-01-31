@@ -80,20 +80,27 @@ public class Address {
         return __validationNumberMethod(this.businessNumbers);
     }
 
-    private boolean validateEmails()
-    {
-        boolean valid = true;
-        for (int i = 0; i < this.emails.size(); i++)
-        {
+//    private boolean validateEmails()
+//    {
+//        boolean valid = true;
+//        for (int i = 0; i < this.emails.size(); i++)
+//        {
+//
+//            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+//            Pattern p = Pattern.compile(emailRegex);
+//            if(!p.matcher(this.emails.get(i)).matches())
+//            {
+//                valid=false;
+//            }
+//        }
+//        return valid;
+//    }
 
+    private boolean validateEmail()
+    {
             String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
             Pattern p = Pattern.compile(emailRegex);
-            if(!p.matcher(this.emails.get(i)).matches())
-            {
-                valid=false;
-            }
-        }
-        return valid;
+            return(!p.matcher(this.emails).hasMatch());
     }
 
 }
