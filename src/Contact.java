@@ -123,7 +123,18 @@ public class Contact {
     }
 
     public String toString(){
-        return "";
+        return String.format(
+                "Nickname: %s%nContact Number: %s%nFirst Name: %s%nSurname: %s%nEmail: %s%nBirthday: %s%nHome Number: %s%nBusiness Number: %s%n",
+                this.nickname,
+                this.mobileNumbers,
+                this.firstName,
+                this.surname,
+                this.emails,
+                this.birthday,
+                this.homeNumbers,
+                this.businessNumbers);
+
+
     }
 
 }
