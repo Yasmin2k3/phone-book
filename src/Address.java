@@ -113,4 +113,8 @@ public class Address {
             return(!p.matcher(this.emails).hasMatch());
     }
 
+    public String toString(){
+        return "";
+    }
+
 }
