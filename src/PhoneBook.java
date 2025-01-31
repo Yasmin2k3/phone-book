@@ -1,20 +1,25 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class PhoneBook {
     ArrayList<Address> phoneAddress;
 
     public PhoneBook(){
-        phoneAddress = new ArrayList<>();
+        this.phoneAddress = new ArrayList<>();
     }
 
     public void add(String nickname, String firstName, String surname, String mobileNumber, String homeNumber, String businessNumber, String email, Date birthday){
-        phoneAddress.add(new Address(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, email, birthday));
+        //TODO: check if it is already in the phone book
+        this.phoneAddress.add(new Address(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, email, birthday));
+        //TODO: change to binary search
+        phoneAddress.sort(Comparator.comparing(Address::getFirstName));
     }
 
-    public void update(){
+    public void update(int id){
     }
 
-    public void delete(){
+    public void delete(int id){
 
     }
 
