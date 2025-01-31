@@ -82,9 +82,10 @@ public class PhoneBook {
     public String toString(){
         StringBuilder str = new StringBuilder();
 
-        for(int i=0; i<contacts.size(); i++){
-            str.append(contacts.get(i).toString());
+        for(int i=0; i<contacts.size()-1; i++){
+            str.append("Index: ").append(i).append(" - ").append(contacts.get(i).toString()).append("\n");
         }
+        str.append("Index: ").append(contacts.size()-1).append(" - ").append(contacts.getLast().toString());
 
         return str.toString();
     }
