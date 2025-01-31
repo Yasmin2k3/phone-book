@@ -3,9 +3,19 @@ import java.util.regex.Pattern;
 
 public class Address {
     private String nickname, firstName, surname, group;
-    ArrayList<String> mobileNumbers, homeNumbers, businessNumbers, emails;
+    String mobileNumbers, homeNumbers, businessNumbers, emails;
     Date birthday;
     private boolean emergencyContact = false;
+
+    private final int charCap = 50;
+
+    public Address(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, String emails, Date birthday){
+
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
 
     public boolean isEmergencyContact() {
         return emergencyContact;
@@ -14,7 +24,7 @@ public class Address {
     public void setEmergencyContact(boolean emergencyContact) {
         this.emergencyContact = emergencyContact;
     }
-    private final int charCap = 50;
+
     private boolean validateFirstName()
     {
         return this.firstName.length()<=charCap;
@@ -31,24 +41,32 @@ public class Address {
     {
         return this.group.length()<=charCap;
     }
-    private boolean __validationNumberMethod(ArrayList<String> list)
+//    private boolean __validationNumberMethod(ArrayList<String> list)
+//    {
+//        boolean valid = true;
+//        int min = 9;
+//        int max = 15;
+//        for (int i = 0; i < list.size(); i++) {
+//            int curNumLength = list.get(i).length();
+//            if(curNumLength< min || curNumLength >max)
+//            {
+//                valid = false;
+//            }
+//            else
+//            {
+//                continue;
+//            }
+//
+//        }
+//        return valid;
+//    }
+
+    private boolean __validationNumberMethod(String phoneNumber)
     {
-        boolean valid = true;
         int min = 9;
         int max = 15;
-        for (int i = 0; i < list.size(); i++) {
-            int curNumLength = list.get(i).length();
-            if(curNumLength< min || curNumLength >max)
-            {
-                valid = false;
-            }
-            else
-            {
-                continue;
-            }
 
-        }
-        return valid;
+        return(phoneNumber.length()< min || phoneNumber.length() >max);
     }
 
     private boolean validateMobileNumbers()
@@ -64,20 +82,27 @@ public class Address {
         return __validationNumberMethod(this.businessNumbers);
     }
 
-    private boolean validateEmails()
-    {
-        boolean valid = true;
-        for (int i = 0; i < this.emails.size(); i++)
-        {
+//    private boolean validateEmails()
+//    {
+//        boolean valid = true;
+//        for (int i = 0; i < this.emails.size(); i++)
+//        {
+//
+//            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+//            Pattern p = Pattern.compile(emailRegex);
+//            if(!p.matcher(this.emails.get(i)).matches())
+//            {
+//                valid=false;
+//            }
+//        }
+//        return valid;
+//    }
 
+    private boolean validateEmail()
+    {
             String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
             Pattern p = Pattern.compile(emailRegex);
-            if(!p.matcher(this.emails.get(i)).matches())
-            {
-                valid=false;
-            }
-        }
-        return valid;
+            return(!p.matcher(this.emails).hasMatch());
     }
 
 }
