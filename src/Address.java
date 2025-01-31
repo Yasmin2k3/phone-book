@@ -10,6 +10,10 @@ public class Address {
 
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
     public boolean isEmergencyContact() {
         return emergencyContact;
     }
