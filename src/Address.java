@@ -10,7 +10,9 @@ public class Address {
     private final int charCap = 50;
 
     public Address(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, String emails, Date birthday){
-
+        if(!validate(mobileNumbers, homeNumbers, businessNumbers)){
+            throw new RuntimeException();
+        }
     }
 
     public String getFirstName() {
@@ -23,6 +25,11 @@ public class Address {
 
     public void setEmergencyContact(boolean emergencyContact) {
         this.emergencyContact = emergencyContact;
+    }
+
+    private boolean validate(String mobileNumbers, String homeNumbers, String businessNumbers){
+        return (validateFirstName() && validateSurName() && validateNickname() && validateGroup() && __validationNumberMethod(mobileNumbers)
+         && __validationNumberMethod(homeNumbers) && __validationNumberMethod(businessNumbers) && validateEmail());
     }
 
     private boolean validateFirstName()
@@ -69,6 +76,7 @@ public class Address {
         return(phoneNumber.length()< min || phoneNumber.length() >max);
     }
 
+    //Don't need these
     private boolean validateMobileNumbers()
     {
         return __validationNumberMethod(this.mobileNumbers);

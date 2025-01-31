@@ -31,7 +31,7 @@ public class PhoneBook {
         return phoneAddress.get(id);
     }
 
-    public void setEmergencyContact(boolean emergencyContact){
+    public void setEmergencyContact(int id, boolean emergencyContact){phoneAddress.get(id).setEmergencyContact(emergencyContact);}
 
-    }
+
 }
