@@ -72,8 +72,6 @@ public class PhoneBook {
         return result.toString();
     }
 
-
-
     public Contact getContact(int id){
         return contacts.get(id);
     }
@@ -81,5 +79,13 @@ public class PhoneBook {
     public void setEmergencyContact(int id, boolean emergencyContact){
         contacts.get(id).setEmergencyContact(emergencyContact);}
 
+    public String toString(){
+        StringBuilder str = new StringBuilder();
 
+        for(int i=0; i<contacts.size(); i++){
+            str.append(contacts.get(i).toString());
+        }
+
+        return str.toString();
+    }
 }
