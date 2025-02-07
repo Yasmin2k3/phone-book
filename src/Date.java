@@ -31,8 +31,6 @@ public class Date
         this.day = day;
         this.year = year;
 
-        System.out.printf(
-                "Date object constructor for date %s%n", this);
     }
 
     // return a String of the form month/day/year

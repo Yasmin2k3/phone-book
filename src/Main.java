@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -34,7 +35,8 @@ public class Main {
             System.out.println("3. Search Contact by First Name");
             System.out.println("4. Update Contact");
             System.out.println("5. Delete Contact");
-            System.out.println("6. Exit");
+            System.out.println("6. Sort Phonebook");
+            System.out.println("7. Exit");
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
@@ -53,7 +55,14 @@ public class Main {
                 case 4:
                     updateContact(myPhoneBook, scanner);
                     break;
+                case 5:
+                    System.out.println("Input id you want to delete.");
+                    myPhoneBook.delete(scanner.nextInt());
+                    break;
                 case 6:
+                    myPhoneBook.sort();
+                    break;
+                case 7:
                     running = false;
                     System.out.println("Exiting Phone Book.");
                     break;
@@ -86,11 +95,18 @@ public class Main {
 
         System.out.println("Enter Birthdate as MM DD YYYY");
         String bDay = scanner.nextLine();
-        String[] birthDay = bDay.split(" ");
+        int[] birthday = Arrays.stream(bDay.split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
 
-        Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthDay[0], 11, 2003));
-        phoneBook.add(newContact);
-        System.out.println("Contact added successfully.");
+        try{
+            Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthday[0], birthday[1], birthday[2]));
+            phoneBook.add(newContact);
+            System.out.println("Contact added successfully.");
+        }catch(IllegalArgumentException e){
+            System.out.println("Contact invalid.");
+        }
+
     }
 
     // Method to search for a contact
@@ -130,11 +146,18 @@ public class Main {
         System.out.print("Enter New Business Number: ");
         String businessNumber = scanner.nextLine();
 
-        System.out.print("Enter New Birthday (DD MM YYYY): ");
-        int day = scanner.nextInt();
-        int month = scanner.nextInt();
-        int year = scanner.nextInt();
+        System.out.println("Enter New Birthday as MM DD YYYY");
+        String bDay = scanner.nextLine();
+        int[] birthday = Arrays.stream(bDay.split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
 
-
+        try{
+            Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthday[0], birthday[1], birthday[2]));
+            phoneBook.add(newContact);
+            System.out.println("Contact updated successfully.");
+        }catch(IllegalArgumentException e){
+            System.out.println("New contact invalid.");
+        }
     }
 }
