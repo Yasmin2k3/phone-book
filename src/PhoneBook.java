@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 
 public class PhoneBook {
     ArrayList<Contact> contacts;
@@ -20,12 +21,51 @@ public class PhoneBook {
         contacts.sort(Comparator.comparing(Contact::getFirstName));
     }
 
+    public void sort() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Choose what option to sort by:\n" +
+                "1: Sort by nickname\n" +
+                "2: Sort by first name\n" +
+                "3: Sort by surname\n");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (choice) {
+            case 1:
+                contacts.sort(Comparator.comparing(c -> c.getOption(1), String.CASE_INSENSITIVE_ORDER));
+                break;
+            case 2:
+                contacts.sort(Comparator.comparing(c -> c.getOption(2), String.CASE_INSENSITIVE_ORDER));
+                break;
+            case 3:
+                contacts.sort(Comparator.comparing(c -> c.getOption(3), String.CASE_INSENSITIVE_ORDER));
+                break;
+            default:
+                System.out.println("Invalid option. Sorting cancelled.");
+                return;
+        }
+        System.out.println("Contacts sorted successfully!");
+    }
+
     public void delete(int id){
         System.out.println("REMOVED:\n" + contacts.get(id));
         this.contacts.remove(id);
     }
 
-    public String searchByName(String firstName) {
+//    public String search(){
+//        Scanner scanner = new Scanner(System.in);
+//
+//        System.out.println("Choose what option to search by:\n" +
+//                "1: Search by nickname\n" +
+//                "2: Search by firstname\n" +
+//                "3: Search by surname\n");
+//
+//        int choice = scanner.nextInt();
+//        scanner.nextLine();
+//    }
+
+    public String searchByName(String name) {
         int left = 0, right = contacts.size() - 1;
         int mid = -1;
 
@@ -33,7 +73,7 @@ public class PhoneBook {
         while (left <= right) {
             mid = left + (right - left) / 2;
             Contact midContact = contacts.get(mid);
-            int comparison = midContact.getFirstName().compareToIgnoreCase(firstName);
+            int comparison = midContact.getFirstName().compareToIgnoreCase(name);
 
             if (comparison == 0) {
                 break;
@@ -44,7 +84,7 @@ public class PhoneBook {
             }
         }
 
-        if (mid == -1 || contacts.get(mid).getFirstName().compareToIgnoreCase(firstName) != 0) {
+        if (mid == -1 || contacts.get(mid).getFirstName().compareToIgnoreCase(name) != 0) {
             return "Contact not found.";
         }
 
@@ -53,12 +93,12 @@ public class PhoneBook {
         int start = mid, end = mid;
 
         // Find the leftmost occurrence
-        while (start > 0 && contacts.get(start - 1).getFirstName().compareToIgnoreCase(firstName) == 0) {
+        while (start > 0 && contacts.get(start - 1).getFirstName().compareToIgnoreCase(name) == 0) {
             start--;
         }
 
         // Find the rightmost occurrence
-        while (end < contacts.size() - 1 && contacts.get(end + 1).getFirstName().compareToIgnoreCase(firstName) == 0) {
+        while (end < contacts.size() - 1 && contacts.get(end + 1).getFirstName().compareToIgnoreCase(name) == 0) {
             end++;
         }
 
