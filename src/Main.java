@@ -84,7 +84,11 @@ public class Main {
         System.out.print("Enter Business Number: ");
         String businessNumber = scanner.nextLine();
 
-        Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(12, 11, 2003));
+        System.out.println("Enter Birthdate as MM DD YYYY");
+        String bDay = scanner.nextLine();
+        String[] birthDay = bDay.split(" ");
+
+        Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthDay[0], 11, 2003));
         phoneBook.add(newContact);
         System.out.println("Contact added successfully.");
     }
