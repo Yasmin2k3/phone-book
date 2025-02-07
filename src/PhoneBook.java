@@ -1,3 +1,9 @@
+/**
+ * A catalog of contacts.
+ *
+ * @Yasmin is author :)
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -14,14 +20,25 @@ public class PhoneBook {
         this.contacts = new ArrayList<>();
         this.fileName = fileName;
         readFromCSV(fileName);
-
-        Scanner scanner = new Scanner(System.in);
     }
 
+    /**
+     * <p>Generates a random string of 5 numbers and letters as a unique identification.</p>
+     *
+     * @return a string of 5 random numbers and letters.
+     */
     private String generateID(){
-        return Integer.toString(contacts.isEmpty() ? 1 : contacts.size()+1);
+        String str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i<5; i++){
+            sb.append(str.charAt((int) (Math.random() * str.length()) +1));
+        }
+        return sb.toString();
     }
 
+    /**
+     * <p>Provides UI to add a contact to the phone book</p>
+     */
     public void add(){
         Scanner scanner = new Scanner(System.in);
             System.out.print("Enter Nickname: ");
@@ -57,18 +74,26 @@ public class PhoneBook {
             }
 
     }
+
+    /**
+     * Adds a contact from add() to the phone book
+     * @param contact the contact from add().
+     */
     private void _add(Contact contact){
         //TODO: check if it is already in the phone book
         this.contacts.add(contact);
         writeToCSV(fileName);
     }
 
-    public void update(int id){
+    /**
+     * <p>Provides UI to update a contact in the phone book</p>
+     */
+    public void update(){
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter Contact ID to update: ");
-        String identify = scanner.nextLine();
+        String id = scanner.nextLine();
 
-        if (Integer.parseInt(identify) < 0 || Integer.parseInt(identify) >= contacts.size()) {
+        if (Integer.parseInt(id) < 0 || Integer.parseInt(id) > contacts.size()) {
             System.out.println("Invalid Contact ID.");
             return;
         }
@@ -98,21 +123,29 @@ public class PhoneBook {
                 .toArray();
 
         try{
-            Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthday[0], birthday[1], birthday[2]), Integer.toString(identify));
-            _update(identify,newContact);
+            Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthday[0], birthday[1], birthday[2]), id);
+            _update(id,newContact);
             System.out.println("Contact updated successfully.");
         }catch(IllegalArgumentException e){
             System.out.println("New contact invalid.");
         }
     }
 
-
+    /**
+     * Updates a contact with specified ID from update()
+     * @param id unique contact ID
+     * @param contact from update()
+     */
     public void _update(String id, Contact contact){
         this.contacts.set(searchForID(id), contact);
         writeToCSV(fileName);
     }
 
-    //returns index of where ID is in contacts.
+    /**
+     * returns index of where ID is in contacts.
+     * @param id unique contact ID
+     * @return index of contact with id
+     */
     private int searchForID(String id){
         for (int i=0; i<contacts.size(); i++){
             if(contacts.get(i).getId().equals(id)){
@@ -122,6 +155,9 @@ public class PhoneBook {
         return -1;
     }
 
+    /**
+     * <p>Provides UI to choose which method to sort contact list by.</p>
+     */
     public void sort() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose what option to sort by:\n" +
@@ -149,24 +185,21 @@ public class PhoneBook {
         System.out.println("Contacts sorted successfully!");
     }
 
-    public void delete(int id){
-        System.out.println("REMOVED:\n" + contacts.get(id));
-        this.contacts.remove(id);
+    /**
+     * <p>Deletes a contact from the phone book based on id</p>
+     * @param id contact's unique id that will be deleted.
+     */
+    public void delete(String id){
+        System.out.println("REMOVED:\n" + contacts.get(searchForID(id)));
+        this.contacts.remove(searchForID(id));
         writeToCSV(fileName);
     }
 
-//    public String search(){
-//        Scanner scanner = new Scanner(System.in);
-//
-//        System.out.println("Choose what option to search by:\n" +
-//                "1: Search by nickname\n" +
-//                "2: Search by firstname\n" +
-//                "3: Search by surname\n");
-//
-//        int choice = scanner.nextInt();
-//        scanner.nextLine();
-//    }
-
+    /**
+     * Searches by someone's first name
+     * @param name contact's first name
+     * @return all contacts that share this first name
+     */
     public String searchByName(String name) {
         int left = 0, right = contacts.size() - 1;
         int mid = -1;
@@ -206,7 +239,7 @@ public class PhoneBook {
 
         // Collect all matching addresses and their indexes
         for (int i = start; i <= end; i++) {
-            result.append("ID: ").append(i).append(" - ").append(contacts.get(i).toString()).append("\n");
+            result.append(contacts.get(i).toString()).append("\n");
         }
 
         return result.toString();
@@ -219,17 +252,25 @@ public class PhoneBook {
     public void setEmergencyContact(int id, boolean emergencyContact){
         contacts.get(id).setEmergencyContact(emergencyContact);}
 
+    /**
+     * Allows the phonebook to be displayed in a nice order
+     * @return phonebook as a string
+     */
     public String toString(){
         StringBuilder str = new StringBuilder();
 
         for(int i=0; i<contacts.size()-1; i++){
-            str.append("ID: ").append(i).append("\n").append(contacts.get(i).toString()).append("\n");
+            str.append(contacts.get(i).toString()).append("\n");
         }
-        str.append("ID: ").append(contacts.size()-1).append("\n").append(contacts.getLast().toString());
+        str.append(contacts.getLast().toString());
 
         return str.toString();
     }
 
+    /**
+     * Writes to a csv with a given file name
+     * @param fileName csv file name
+     */
     public void writeToCSV(String fileName) {
         try (PrintWriter writer = new PrintWriter(fileName)) {
             StringBuilder sb = new StringBuilder();
@@ -249,6 +290,10 @@ public class PhoneBook {
         }
     }
 
+    /**
+     * Reads file from a given file name and updates ArrayList contacts
+     * @param fileName file name to be read from.
+     */
     public void readFromCSV(String fileName) {
         try (Scanner scanner = new Scanner(new File(fileName))) {
             contacts.clear();

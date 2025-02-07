@@ -32,11 +32,11 @@ public class Main {
                     searchContact(myPhoneBook, scanner);
                     break;
                 case 4:
-                    updateContact(myPhoneBook, scanner);
+                    myPhoneBook.update();
                     break;
                 case 5:
                     System.out.println("Input id you want to delete.");
-                    myPhoneBook.delete(scanner.nextInt());
+                    myPhoneBook.delete(scanner.nextLine());
                     break;
                 case 6:
                     myPhoneBook.sort();

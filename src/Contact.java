@@ -110,7 +110,8 @@ public class Contact {
 
     public String toString(){
         return String.format(
-                "Nickname: %s%nFirst Name: %s%nSurname: %s%nBirthday: %s%nContact Number: %s%nHome Number: %s%nBusiness Number: %s%n",
+                "ID: %s%nNickname: %s%nFirst Name: %s%nSurname: %s%nBirthday: %s%nContact Number: %s%nHome Number: %s%nBusiness Number: %s%n",
+                this.id,
                 this.nickname,
                 this.firstName,
                 this.surname,
