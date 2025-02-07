@@ -3,12 +3,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
 
 public class PhoneBook {
     ArrayList<Contact> contacts;
     String fileName;
+    File file;
 
     public PhoneBook(){
         this.contacts = new ArrayList<>();
@@ -17,10 +19,10 @@ public class PhoneBook {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter a file name to create:");
             this.fileName = scanner.nextLine().strip().replace(" ", "_") + ".csv";
-            File f = new File(fileName);
-            f.createNewFile();
+            this.file = new File(fileName);
+            file.createNewFile();
         }catch (IOException e){
-            System.out.println("Unable to create new file" + e);
+            System.out.println("Unable to create new file: " + e);
         }
     }
 
@@ -144,7 +146,7 @@ public class PhoneBook {
     }
 
     public void writeToCSV() {
-        try (PrintWriter writer = new PrintWriter(this.fileName)) {
+        try (PrintWriter writer = new PrintWriter(this.file)) {
             StringBuilder sb = new StringBuilder();
             for (Contact contact : contacts) {
                 sb.append(contact.getOption(1)).append(",")
@@ -158,6 +160,23 @@ public class PhoneBook {
             writer.write(sb.toString());
         } catch (FileNotFoundException e) {
             System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    public void readFromCSV(String fileName) {
+        try (Scanner scanner = new Scanner(this.file)) {
+            contacts.clear();
+            while (scanner.hasNextLine()) {
+                String[] data = scanner.nextLine().split(",");
+                int[] date = Arrays.stream(data[6].split(" "))
+                        .mapToInt(Integer::parseInt)
+                        .toArray();
+                Contact contact = new Contact(
+                        data[0], data[1], data[2], data[3], data[4], data[5], new Date(date[0], date[1], date[2]));
+                contacts.add(contact);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error reading file: " + e.getMessage());
         }
     }
 }
