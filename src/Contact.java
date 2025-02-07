@@ -8,7 +8,6 @@ public class Contact {
 
     private final int charCap = 50;
 
-    //add email
     public Contact(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, Date birthday){
 
         try{
@@ -28,6 +27,19 @@ public class Contact {
 
     public String getFirstName() {
         return firstName;
+    }
+
+    public String getOption(int option){
+        switch(option){
+            case 1:
+                return nickname;
+            case 2:
+                return firstName;
+            case 3:
+                return surname;
+            default:
+                return "invalid option";
+        }
     }
 
     public boolean isEmergencyContact() {

@@ -35,7 +35,8 @@ public class Main {
             System.out.println("3. Search Contact by First Name");
             System.out.println("4. Update Contact");
             System.out.println("5. Delete Contact");
-            System.out.println("6. Exit");
+            System.out.println("6. Sort Phonebook");
+            System.out.println("7. Exit");
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
@@ -54,7 +55,14 @@ public class Main {
                 case 4:
                     updateContact(myPhoneBook, scanner);
                     break;
+                case 5:
+                    System.out.println("Input id you want to delete.");
+                    myPhoneBook.delete(scanner.nextInt());
+                    break;
                 case 6:
+                    myPhoneBook.sort();
+                    break;
+                case 7:
                     running = false;
                     System.out.println("Exiting Phone Book.");
                     break;
