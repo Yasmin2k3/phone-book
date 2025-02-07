@@ -20,13 +20,10 @@ public class PhoneBook {
     public void add(Contact contact){
         //TODO: check if it is already in the phone book
         this.contacts.add(contact);
-        //TODO: change to binary search
-        contacts.sort(Comparator.comparing(Contact::getFirstName));
     }
 
     public void update(int id, Contact contact){
         this.contacts.set(id, contact);
-        contacts.sort(Comparator.comparing(Contact::getFirstName));
     }
 
     public void sort() {
@@ -41,13 +38,13 @@ public class PhoneBook {
 
         switch (choice) {
             case 1:
-                contacts.sort(Comparator.comparing(c -> c.getOption(1), String.CASE_INSENSITIVE_ORDER));
+                contacts.sort(Comparator.comparing(Contact::getNickname, String.CASE_INSENSITIVE_ORDER));
                 break;
             case 2:
-                contacts.sort(Comparator.comparing(c -> c.getOption(2), String.CASE_INSENSITIVE_ORDER));
+                contacts.sort(Comparator.comparing(Contact::getFirstName, String.CASE_INSENSITIVE_ORDER));
                 break;
             case 3:
-                contacts.sort(Comparator.comparing(c -> c.getOption(3), String.CASE_INSENSITIVE_ORDER));
+                contacts.sort(Comparator.comparing(Contact::getSurname, String.CASE_INSENSITIVE_ORDER));
                 break;
             default:
                 System.out.println("Invalid option. Sorting cancelled.");
@@ -131,7 +128,7 @@ public class PhoneBook {
         for(int i=0; i<contacts.size()-1; i++){
             str.append("ID: ").append(i).append("\n").append(contacts.get(i).toString()).append("\n");
         }
-        str.append("ID: ").append(contacts.size()-1).append(" - ").append(contacts.getLast().toString());
+        str.append("ID: ").append(contacts.size()-1).append("\n").append(contacts.getLast().toString());
 
         return str.toString();
     }
@@ -140,13 +137,13 @@ public class PhoneBook {
         try (PrintWriter writer = new PrintWriter(fileName)) {
             StringBuilder sb = new StringBuilder();
             for (Contact contact : contacts) {
-                sb.append(contact.getOption(1)).append(",")
-                        .append(contact.getOption(2)).append(",")
-                        .append(contact.getOption(3)).append(",")
-                        .append(contact.mobileNumbers).append(",")
-                        .append(contact.homeNumbers).append(",")
-                        .append(contact.businessNumbers).append(",")
-                        .append(contact.birthday).append("\n");
+                sb.append(contact.getNickname()).append(",")
+                        .append(contact.getFirstName()).append(",")
+                        .append(contact.getSurname()).append(",")
+                        .append(contact.getMobileNumbers()).append(",")
+                        .append(contact.getHomeNumbers()).append(",")
+                        .append(contact.getBusinessNumbers()).append(",")
+                        .append(contact.getBirthday()).append("\n");
             }
             writer.write(sb.toString());
         } catch (FileNotFoundException e) {

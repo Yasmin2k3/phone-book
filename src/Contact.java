@@ -1,8 +1,8 @@
 import java.util.regex.Pattern;
 
 public class Contact {
-    private String nickname, firstName, surname;
-    String mobileNumbers, homeNumbers, businessNumbers, email;
+    final private String nickname, firstName, surname;
+    final String mobileNumbers, homeNumbers, businessNumbers;
     Date birthday;
     private boolean emergencyContact = false;
 
@@ -29,17 +29,28 @@ public class Contact {
         return firstName;
     }
 
-    public String getOption(int option){
-        switch(option){
-            case 1:
-                return nickname;
-            case 2:
-                return firstName;
-            case 3:
-                return surname;
-            default:
-                return "invalid option";
-        }
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public String getHomeNumbers() {
+        return homeNumbers;
+    }
+
+    public String getMobileNumbers() {
+        return mobileNumbers;
+    }
+
+    public String getBusinessNumbers() {
+        return businessNumbers;
     }
 
     public boolean isEmergencyContact() {
@@ -94,13 +105,12 @@ public class Contact {
 
     public String toString(){
         return String.format(
-                "Nickname: %s%nContact Number: %s%nFirst Name: %s%nSurname: %s%nEmail: %s%nBirthday: %s%nHome Number: %s%nBusiness Number: %s%n",
+                "Nickname: %s%nFirst Name: %s%nSurname: %s%nBirthday: %s%nContact Number: %s%nHome Number: %s%nBusiness Number: %s%n",
                 this.nickname,
-                this.mobileNumbers,
                 this.firstName,
                 this.surname,
-                this.email,
                 this.birthday,
+                this.mobileNumbers,
                 this.homeNumbers,
                 this.businessNumbers);
 
