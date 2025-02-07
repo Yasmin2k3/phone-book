@@ -1,8 +1,6 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-//        this.fileName = scanner.nextLine().strip().replace(" ", "_") + ".csv";
-
 public class Main {
     public static void test() {
         PhoneBook myPhoneBook = new PhoneBook("test.csv");
