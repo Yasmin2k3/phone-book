@@ -196,7 +196,7 @@ public class PhoneBook {
     }
 
     /**
-     * Searches by someone's first name
+     * <p>Searches by someone's first name</p>
      * @param name contact's first name
      * @return all contacts that share this first name
      */
@@ -245,15 +245,11 @@ public class PhoneBook {
         return result.toString();
     }
 
-    public Contact getContact(int id){
-        return contacts.get(id);
-    }
-
     public void setEmergencyContact(int id, boolean emergencyContact){
         contacts.get(id).setEmergencyContact(emergencyContact);}
 
     /**
-     * Allows the phonebook to be displayed in a nice order
+     * <p>Allows the phonebook to be displayed in a nice order</p>
      * @return phonebook as a string
      */
     public String toString(){
@@ -268,7 +264,7 @@ public class PhoneBook {
     }
 
     /**
-     * Writes to a csv with a given file name
+     * <p>Writes to a csv with a given file name</p>
      * @param fileName csv file name
      */
     public void writeToCSV(String fileName) {
@@ -291,7 +287,7 @@ public class PhoneBook {
     }
 
     /**
-     * Reads file from a given file name and updates ArrayList contacts
+     * <p>Reads file from a given file name and updates ArrayList contacts</p>
      * @param fileName file name to be read from.
      */
     public void readFromCSV(String fileName) {

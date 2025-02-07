@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -19,7 +18,7 @@ public class Main {
             System.out.print("Choose an option: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -35,7 +34,7 @@ public class Main {
                     myPhoneBook.update();
                     break;
                 case 5:
-                    System.out.println("Input id you want to delete.");
+                    System.out.println("Input ID you want to delete.");
                     myPhoneBook.delete(scanner.nextLine());
                     break;
                 case 6:
@@ -51,7 +50,7 @@ public class Main {
         }
         scanner.close();
     }
-    // Method to search for a contact
+
     private static void searchContact(PhoneBook phoneBook, Scanner scanner) {
         System.out.print("Enter First Name to search: ");
         String firstName = scanner.nextLine();
