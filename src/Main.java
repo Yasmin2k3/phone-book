@@ -91,9 +91,14 @@ public class Main {
                 .mapToInt(Integer::parseInt)
                 .toArray();
 
-        Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthday[0], birthday[1], birthday[2]));
-        phoneBook.add(newContact);
-        System.out.println("Contact added successfully.");
+        try{
+            Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthday[0], birthday[1], birthday[2]));
+            phoneBook.add(newContact);
+            System.out.println("Contact added successfully.");
+        }catch(IllegalArgumentException e){
+            System.out.println("Contact invalid.");
+        }
+
     }
 
     // Method to search for a contact
@@ -139,7 +144,12 @@ public class Main {
                 .mapToInt(Integer::parseInt)
                 .toArray();
 
-        Contact contact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber,new Date(birthday[0], birthday[1], birthday[2]));
-        phoneBook.update(id, contact);
+        try{
+            Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthday[0], birthday[1], birthday[2]));
+            phoneBook.add(newContact);
+            System.out.println("Contact updated successfully.");
+        }catch(IllegalArgumentException e){
+            System.out.println("New contact invalid.");
+        }
     }
 }

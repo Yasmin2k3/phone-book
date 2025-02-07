@@ -22,6 +22,7 @@ public class Contact {
             this.birthday = birthday;
         }catch (RuntimeException e){
             System.out.println("validation failed: " + e);
+            throw new IllegalArgumentException();
         }
     }
 
@@ -44,19 +45,20 @@ public class Contact {
 
     private boolean validateFirstName(String firstName)
     {
-        if (firstName.length()<=charCap)
+        if (!(firstName.length()<=charCap)){
             throw new RuntimeException("firstname length invalid");
+        }
         return true;
     }
     private boolean validateSurName(String surname)
     {
-        if (surname.length()<=charCap)
+        if (!(surname.length()<=charCap))
             throw new RuntimeException("surname length invalid");
         return true;
     }
     private boolean validateNickname(String nickname)
     {
-        if (nickname.length()<=charCap)
+        if (!(nickname.length()<=charCap))
             throw new RuntimeException("nickname length invalid");
         return true;
     }
@@ -66,7 +68,9 @@ public class Contact {
         int min = 9;
         int max = 15;
 
-        return(phoneNumber.length()> min && phoneNumber.length() <max);
+        if (!(phoneNumber.length()>min && phoneNumber.length()<max))
+            throw new RuntimeException(phoneNumber + " error. Length invalid");
+        return true;
     }
 
 //    private boolean validateEmail(String email)
