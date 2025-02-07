@@ -1,14 +1,14 @@
 import java.util.regex.Pattern;
 
 public class Contact {
-    final private String nickname, firstName, surname;
-    final String mobileNumbers, homeNumbers, businessNumbers;
-    Date birthday;
+    final private String nickname, firstName, surname, id;
+    private String mobileNumbers, homeNumbers, businessNumbers;
+    private Date birthday;
     private boolean emergencyContact = false;
 
     private final int charCap = 50;
 
-    public Contact(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, Date birthday){
+    public Contact(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, Date birthday, String id){
 
         try{
            validate(firstName, surname, nickname, mobileNumbers, homeNumbers, businessNumbers);
@@ -19,6 +19,7 @@ public class Contact {
             this.homeNumbers = homeNumbers;
             this.businessNumbers=businessNumbers;
             this.birthday = birthday;
+            this.id = id;
         }catch (RuntimeException e){
             System.out.println("validation failed: " + e);
             throw new IllegalArgumentException();
@@ -51,6 +52,10 @@ public class Contact {
 
     public String getBusinessNumbers() {
         return businessNumbers;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public boolean isEmergencyContact() {

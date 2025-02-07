@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,21 +8,118 @@ import java.util.Scanner;
 
 public class PhoneBook {
     ArrayList<Contact> contacts;
+    String fileName;
 
     public PhoneBook(String fileName){
         this.contacts = new ArrayList<>();
+        this.fileName = fileName;
         readFromCSV(fileName);
 
         Scanner scanner = new Scanner(System.in);
     }
 
-    public void add(Contact contact){
-        //TODO: check if it is already in the phone book
-        this.contacts.add(contact);
+    private String generateID(){
+        return Integer.toString(contacts.isEmpty() ? 1 : contacts.size()+1);
     }
 
-    public void update(int id, Contact contact){
-        this.contacts.set(id, contact);
+    public void add(){
+        Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter Nickname: ");
+            String nickname = scanner.nextLine();
+
+            System.out.print("Enter First Name: ");
+            String firstName = scanner.nextLine();
+
+            System.out.print("Enter Surname: ");
+            String surname = scanner.nextLine();
+
+            System.out.print("Enter Mobile Number: ");
+            String mobileNumber = scanner.nextLine();
+
+            System.out.print("Enter Home Number: ");
+            String homeNumber = scanner.nextLine();
+
+            System.out.print("Enter Business Number: ");
+            String businessNumber = scanner.nextLine();
+
+            System.out.println("Enter Birthdate as MM DD YYYY");
+            String bDay = scanner.nextLine();
+            int[] birthday = Arrays.stream(bDay.split(" "))
+                    .mapToInt(Integer::parseInt)
+                    .toArray();
+
+            try{
+                Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthday[0], birthday[1], birthday[2]), generateID());
+                _add(newContact);
+                System.out.println("Contact added successfully.");
+            }catch(IllegalArgumentException e){
+                System.out.println("Contact invalid.");
+            }
+
+    }
+    private void _add(Contact contact){
+        //TODO: check if it is already in the phone book
+        this.contacts.add(contact);
+        writeToCSV(fileName);
+    }
+
+    public void update(int id){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Contact ID to update: ");
+        String identify = scanner.nextLine();
+
+        if (Integer.parseInt(identify) < 0 || Integer.parseInt(identify) >= contacts.size()) {
+            System.out.println("Invalid Contact ID.");
+            return;
+        }
+
+        System.out.print("Enter New Nickname: ");
+        String nickname = scanner.nextLine();
+
+        System.out.print("Enter New First Name: ");
+        String firstName = scanner.nextLine();
+
+        System.out.print("Enter New Surname: ");
+        String surname = scanner.nextLine();
+
+        System.out.print("Enter New Mobile Number: ");
+        String mobileNumber = scanner.nextLine();
+
+        System.out.print("Enter New Home Number: ");
+        String homeNumber = scanner.nextLine();
+
+        System.out.print("Enter New Business Number: ");
+        String businessNumber = scanner.nextLine();
+
+        System.out.println("Enter New Birthday as MM DD YYYY");
+        String bDay = scanner.nextLine();
+        int[] birthday = Arrays.stream(bDay.split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+
+        try{
+            Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthday[0], birthday[1], birthday[2]), Integer.toString(identify));
+            _update(identify,newContact);
+            System.out.println("Contact updated successfully.");
+        }catch(IllegalArgumentException e){
+            System.out.println("New contact invalid.");
+        }
+    }
+
+
+    public void _update(String id, Contact contact){
+        this.contacts.set(searchForID(id), contact);
+        writeToCSV(fileName);
+    }
+
+    //returns index of where ID is in contacts.
+    private int searchForID(String id){
+        for (int i=0; i<contacts.size(); i++){
+            if(contacts.get(i).getId().equals(id)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void sort() {
@@ -56,6 +152,7 @@ public class PhoneBook {
     public void delete(int id){
         System.out.println("REMOVED:\n" + contacts.get(id));
         this.contacts.remove(id);
+        writeToCSV(fileName);
     }
 
 //    public String search(){
@@ -143,7 +240,8 @@ public class PhoneBook {
                         .append(contact.getMobileNumbers()).append(",")
                         .append(contact.getHomeNumbers()).append(",")
                         .append(contact.getBusinessNumbers()).append(",")
-                        .append(contact.getBirthday()).append("\n");
+                        .append(contact.getBirthday()).append(",")
+                        .append(contact.getId()).append("\n");
             }
             writer.write(sb.toString());
         } catch (FileNotFoundException e) {
@@ -160,7 +258,7 @@ public class PhoneBook {
                         .mapToInt(Integer::parseInt)
                         .toArray();
                 Contact contact = new Contact(
-                        data[0], data[1], data[2], data[3], data[4], data[5], new Date(date[0], date[1], date[2]));
+                        data[0], data[1], data[2], data[3], data[4], data[5], new Date(date[0], date[1], date[2]), data[7]);
                 contacts.add(contact);
             }
         } catch (FileNotFoundException e) {
