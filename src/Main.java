@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -86,9 +87,11 @@ public class Main {
 
         System.out.println("Enter Birthdate as MM DD YYYY");
         String bDay = scanner.nextLine();
-        String[] birthDay = bDay.split(" ");
+        int[] birthday = Arrays.stream(bDay.split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
 
-        Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthDay[0], 11, 2003));
+        Contact newContact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber, new Date(birthday[0], birthday[1], birthday[2]));
         phoneBook.add(newContact);
         System.out.println("Contact added successfully.");
     }
@@ -130,10 +133,11 @@ public class Main {
         System.out.print("Enter New Business Number: ");
         String businessNumber = scanner.nextLine();
 
-        System.out.print("Enter New Birthday (DD MM YYYY): ");
-        int day = scanner.nextInt();
-        int month = scanner.nextInt();
-        int year = scanner.nextInt();
+        System.out.println("Enter New Birthday as MM DD YYYY");
+        String bDay = scanner.nextLine();
+        int[] birthday = Arrays.stream(bDay.split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
 
 
     }
