@@ -9,21 +9,12 @@ import java.util.Scanner;
 
 public class PhoneBook {
     ArrayList<Contact> contacts;
-    String fileName;
-    File file;
 
-    public PhoneBook(){
+    public PhoneBook(String fileName){
         this.contacts = new ArrayList<>();
+        readFromCSV(fileName);
 
-        try {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter a file name to create:");
-            this.fileName = scanner.nextLine().strip().replace(" ", "_") + ".csv";
-            this.file = new File(fileName);
-            file.createNewFile();
-        }catch (IOException e){
-            System.out.println("Unable to create new file: " + e);
-        }
+        Scanner scanner = new Scanner(System.in);
     }
 
     public void add(Contact contact){
@@ -138,15 +129,15 @@ public class PhoneBook {
         StringBuilder str = new StringBuilder();
 
         for(int i=0; i<contacts.size()-1; i++){
-            str.append("ID: ").append(i).append(" - ").append(contacts.get(i).toString()).append("\n");
+            str.append("ID: ").append(i).append("\n").append(contacts.get(i).toString()).append("\n");
         }
         str.append("ID: ").append(contacts.size()-1).append(" - ").append(contacts.getLast().toString());
 
         return str.toString();
     }
 
-    public void writeToCSV() {
-        try (PrintWriter writer = new PrintWriter(this.file)) {
+    public void writeToCSV(String fileName) {
+        try (PrintWriter writer = new PrintWriter(fileName)) {
             StringBuilder sb = new StringBuilder();
             for (Contact contact : contacts) {
                 sb.append(contact.getOption(1)).append(",")
@@ -164,11 +155,11 @@ public class PhoneBook {
     }
 
     public void readFromCSV(String fileName) {
-        try (Scanner scanner = new Scanner(this.file)) {
+        try (Scanner scanner = new Scanner(new File(fileName))) {
             contacts.clear();
             while (scanner.hasNextLine()) {
                 String[] data = scanner.nextLine().split(",");
-                int[] date = Arrays.stream(data[6].split(" "))
+                int[] date = Arrays.stream(data[6].split("/"))
                         .mapToInt(Integer::parseInt)
                         .toArray();
                 Contact contact = new Contact(
@@ -177,6 +168,7 @@ public class PhoneBook {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Error reading file: " + e.getMessage());
+            writeToCSV(fileName);
         }
     }
 }

@@ -1,9 +1,11 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
+//        this.fileName = scanner.nextLine().strip().replace(" ", "_") + ".csv";
+
 public class Main {
     public static void test() {
-        PhoneBook myPhoneBook = new PhoneBook();
+        PhoneBook myPhoneBook = new PhoneBook("test.csv");
         myPhoneBook.add(new Contact("Yasmin", "Yasmin", "Woodlock", "0899583792", "0526135952", "1234567890", new Date(12, 11, 2003)));
         myPhoneBook.add(new Contact("Yas", "Yasmin", "Lock", "0899583792", "0526135952", "1234567890", new Date(12, 11, 2003)));
         myPhoneBook.add(new Contact("Y", "April", "Gilhool", "1234567890", "1234567890", "1234567890", new Date(12, 11, 2004)));
@@ -18,14 +20,9 @@ public class Main {
         myPhoneBook.delete(2);
     }
 
-    //public static void main(String[] args)
-    //{
-    //test()
-    //PhoneBook myPhoneBook = new PhoneBook();
-    //}
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        PhoneBook myPhoneBook = new PhoneBook();
+        PhoneBook myPhoneBook = new PhoneBook("test.csv");
         boolean running = true;
 
         while (running) {
@@ -70,6 +67,7 @@ public class Main {
                     System.out.println("Invalid option. Please try again.");
             }
         }
+        myPhoneBook.writeToCSV("test.csv");
         scanner.close();
     }
 
