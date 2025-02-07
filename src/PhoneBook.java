@@ -1,12 +1,27 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
 public class PhoneBook {
     ArrayList<Contact> contacts;
+    String fileName;
 
     public PhoneBook(){
         this.contacts = new ArrayList<>();
+
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter a file name to create:");
+            this.fileName = scanner.nextLine().strip().replace(" ", "_") + ".csv";
+            File f = new File(fileName);
+            f.createNewFile();
+        }catch (IOException e){
+            System.out.println("Unable to create new file" + e);
+        }
     }
 
     public void add(Contact contact){
@@ -126,5 +141,23 @@ public class PhoneBook {
         str.append("ID: ").append(contacts.size()-1).append(" - ").append(contacts.getLast().toString());
 
         return str.toString();
+    }
+
+    public void writeToCSV() {
+        try (PrintWriter writer = new PrintWriter(this.fileName)) {
+            StringBuilder sb = new StringBuilder();
+            for (Contact contact : contacts) {
+                sb.append(contact.getOption(1)).append(",")
+                        .append(contact.getOption(2)).append(",")
+                        .append(contact.getOption(3)).append(",")
+                        .append(contact.mobileNumbers).append(",")
+                        .append(contact.homeNumbers).append(",")
+                        .append(contact.businessNumbers).append(",")
+                        .append(contact.birthday).append("\n");
+            }
+            writer.write(sb.toString());
+        } catch (FileNotFoundException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
     }
 }
