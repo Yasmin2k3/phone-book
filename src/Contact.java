@@ -11,7 +11,8 @@ public class Contact {
     //add email
     public Contact(String nickname, String firstName, String surname, String mobileNumbers, String homeNumbers, String businessNumbers, Date birthday){
 
-        if (validate(firstName, surname, nickname, mobileNumbers, homeNumbers, businessNumbers)) {
+        try{
+           validate(firstName, surname, nickname, mobileNumbers, homeNumbers, businessNumbers);
             this.nickname=nickname;
             this.firstName=firstName;
             this.surname=surname;
@@ -19,8 +20,8 @@ public class Contact {
             this.homeNumbers = homeNumbers;
             this.businessNumbers=businessNumbers;
             this.birthday = birthday;
-              } else {
-            throw new RuntimeException("Validation failed");
+        }catch (RuntimeException e){
+            System.out.println("validation failed: " + e);
         }
     }
 
@@ -43,35 +44,22 @@ public class Contact {
 
     private boolean validateFirstName(String firstName)
     {
-        return firstName.length()<=charCap;
+        if (firstName.length()<=charCap)
+            throw new RuntimeException("firstname length invalid");
+        return true;
     }
     private boolean validateSurName(String surname)
     {
-        return surname.length()<=charCap;
+        if (surname.length()<=charCap)
+            throw new RuntimeException("surname length invalid");
+        return true;
     }
     private boolean validateNickname(String nickname)
     {
-        return nickname.length()<=charCap;
+        if (nickname.length()<=charCap)
+            throw new RuntimeException("nickname length invalid");
+        return true;
     }
-//    private boolean __validationNumberMethod(ArrayList<String> list)
-//    {
-//        boolean valid = true;
-//        int min = 9;
-//        int max = 15;
-//        for (int i = 0; i < list.size(); i++) {
-//            int curNumLength = list.get(i).length();
-//            if(curNumLength< min || curNumLength >max)
-//            {
-//                valid = false;
-//            }
-//            else
-//            {
-//                continue;
-//            }
-//
-//        }
-//        return valid;
-//    }
 
     private boolean __validationNumberMethod(String phoneNumber)
     {
@@ -80,22 +68,6 @@ public class Contact {
 
         return(phoneNumber.length()> min && phoneNumber.length() <max);
     }
-
-//    private boolean validateEmails()
-//    {
-//        boolean valid = true;
-//        for (int i = 0; i < this.emails.size(); i++)
-//        {
-//
-//            String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-//            Pattern p = Pattern.compile(emailRegex);
-//            if(!p.matcher(this.emails.get(i)).matches())
-//            {
-//                valid=false;
-//            }
-//        }
-//        return valid;
-//    }
 
 //    private boolean validateEmail(String email)
 //    {

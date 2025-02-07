@@ -139,6 +139,7 @@ public class Main {
                 .mapToInt(Integer::parseInt)
                 .toArray();
 
-
+        Contact contact = new Contact(nickname, firstName, surname, mobileNumber, homeNumber, businessNumber,new Date(birthday[0], birthday[1], birthday[2]));
+        phoneBook.update(id, contact);
     }
 }
