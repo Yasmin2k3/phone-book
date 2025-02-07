@@ -1,12 +1,20 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
 
 public class PhoneBook {
     ArrayList<Contact> contacts;
 
-    public PhoneBook(){
+    public PhoneBook(String fileName){
         this.contacts = new ArrayList<>();
+        readFromCSV(fileName);
+
+        Scanner scanner = new Scanner(System.in);
     }
 
     public void add(Contact contact){
@@ -121,10 +129,46 @@ public class PhoneBook {
         StringBuilder str = new StringBuilder();
 
         for(int i=0; i<contacts.size()-1; i++){
-            str.append("ID: ").append(i).append(" - ").append(contacts.get(i).toString()).append("\n");
+            str.append("ID: ").append(i).append("\n").append(contacts.get(i).toString()).append("\n");
         }
         str.append("ID: ").append(contacts.size()-1).append(" - ").append(contacts.getLast().toString());
 
         return str.toString();
+    }
+
+    public void writeToCSV(String fileName) {
+        try (PrintWriter writer = new PrintWriter(fileName)) {
+            StringBuilder sb = new StringBuilder();
+            for (Contact contact : contacts) {
+                sb.append(contact.getOption(1)).append(",")
+                        .append(contact.getOption(2)).append(",")
+                        .append(contact.getOption(3)).append(",")
+                        .append(contact.mobileNumbers).append(",")
+                        .append(contact.homeNumbers).append(",")
+                        .append(contact.businessNumbers).append(",")
+                        .append(contact.birthday).append("\n");
+            }
+            writer.write(sb.toString());
+        } catch (FileNotFoundException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    public void readFromCSV(String fileName) {
+        try (Scanner scanner = new Scanner(new File(fileName))) {
+            contacts.clear();
+            while (scanner.hasNextLine()) {
+                String[] data = scanner.nextLine().split(",");
+                int[] date = Arrays.stream(data[6].split("/"))
+                        .mapToInt(Integer::parseInt)
+                        .toArray();
+                Contact contact = new Contact(
+                        data[0], data[1], data[2], data[3], data[4], data[5], new Date(date[0], date[1], date[2]));
+                contacts.add(contact);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+            writeToCSV(fileName);
+        }
     }
 }
